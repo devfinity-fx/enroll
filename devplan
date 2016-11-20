@@ -1,3 +1,4 @@
+``` awyiss ```
 online enrollment
 student acct
 scheduling attendance monitoring
@@ -5,15 +6,21 @@ online payment
 accounting system
 grading sytem
 
+[Users]
+ID
+Username
+Password			//32-char hashed (prod)
+Level				//A|Admin
+
 [Enrollment]		// 1 time lang. kase 1 time ka lang naman mag enroll sa buong kolehiyo mo sa isang school. kung mag transfer ka ayon enrol ulet.
 ID					
-StudentID			FK-StudentRecords
+StudentNo			FK-StudentRecords
 Type				// R|Regular T|Transferee
 DateEnrolled
 
 [Enlistment]		// pero ang enlist, eto yong ginagawa na pag reregister sayo sa isang section kada semester.
 ID
-StudentID			FK-StudentRecords
+StudentNo			FK-StudentRecords
 SectionID			FK-Sections
 PaymentMatrixID		FK-PaymentMatrix
 RemainingBalance
@@ -35,16 +42,8 @@ Province
 Nationality
 CivilStatus
 Religion
-Status				// R|Regular I|Irregular G|Graduated
+Status				// R|Regular I|Irregular G|Graduated T|Transferred
 
-
-
-[Faculty]			// profs.
-ID
-LastName
-FirstName
-MiddleName
-Gender
 
 [Rooms]				// rooms.
 ID
@@ -53,20 +52,24 @@ Type				// LEC / LAB
 
 
 [Sections]			// section.
-ID
+ID		
 ShortName
 Description
-CYLMappingID		FK-CourseYearLevelMapping
+AcademicMapID		FK-CourseYearLevelMapping
 
 [SectionSchedule] 	// details ng scheduling. sino nagawa? fixed ba per section o per subject at random for every student? // Student + Room + Faculty
 ID
 SectionID
-FacultyID
 RoomID
 StartTime
 EndTime
 
-					
+[Subjects]	
+ID
+SubjectCode
+Type				// Lec/Lab
+Units				// decimal(1)
+
 [Departments]		// self explanatory
 ID
 CollegeID			FK-Colleges
@@ -92,15 +95,16 @@ ID
 SectionID			FK-Sections
 BreakdownID			FK-Breakdown
 
-[Breakdown]
+[Breakdowns]
 ID
 Description
 Amount
-CYLMappingID		FK-CourseYearLevelMapping
+AcademicMapID		FK-CourseYearLevelMapping
 
-[CourseYearLevelMapping] debatable since marami multiple tables makikinabang.
+[AcademicMap] debatable since marami multiple tables makikinabang.
 ID
-AcademicYearID		FK-AcademicYear
+Semester
+AcademicYear		FK-AcademicYear
 CourseID			FK-Courses
 YearLevel			
 
@@ -111,14 +115,13 @@ YearLevel
 ID
 TransactionID		// 2016-2063512-123123 blah
 ReceiptNo			// OR #
-StudentID			FK-Students
 PayableID			FK-Payables
 PaymentType			// O|Online C|Counter
 DateTimePaid		datetime.
 
 [Payables] // pagkakahati ng mga bayarin pag installments. [Q]: Pano proseso pag installments ang bayaran?
 ID
-StudentID			FK-Students
+StudentNo			FK-Students
 Amount
 Description
 Paid				// 1/0
@@ -132,6 +135,11 @@ Paid				// 1/0
 2. Enlistment happens every sem.
 3. pag nag enlist, gagawa ng payables sa table, tapos kasama don kung magkano yong downpayment na ibabayad. then iset na lang agad as paid.
 4. update remaining balance sa enlistment table.
+5. kung kailangan ng account, created ang account upon enrollment.
+	format: fname.mi.lastname
+	- kung ang firstname ay multiple words, spaces are replaced with dot.
+	- kung ang lastname ay multiple words, spaces are trimmed.
+	ex.: John Michael S. dela Cruz is john.michael.s.delacruz	
 
 ````flow````
 1. student record to db, then create enrollment record.
