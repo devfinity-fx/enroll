@@ -187,7 +187,7 @@ _:-ms-input-placeholder, :root .demo-graph {
 }
 .demo-updates .mdl-card__title {
   min-height: 200px;
-  background-image: url('images/dog.png');
+  background-image: url('../images/dog.png');
   background-position: 90% 100%;
   background-repeat: no-repeat;
 }
@@ -224,6 +224,37 @@ _:-ms-input-placeholder, :root .demo-graph {
 }
 
 
+/* ADDITIONAL*/
+
 .mdl-textfield--expandable .mdl-button--icon {
     top: -18px;
+}
+
+.mdl-layout__drawer-button i {
+    color: black;
+    padding-top: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+#data {
+    margin: 0 auto;
+    display: block;
+}
+
+.block{
+    display: block;
+}
+
+#account-logo.mdl-badge[data-badge]:after{
+    left: 0;
+}
+#side-nav i.mdl-badge[data-badge]:after{
+    right: 0;
+}
+
+.span-indent {
+    padding-left: 10px;
 }

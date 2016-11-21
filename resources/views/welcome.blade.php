@@ -5,13 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Enrollment</title>
 
         <!-- Fonts -->
         {{--<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">--}}
+        <link rel="shortcut icon" type="image/png" href="{{asset('\images\sug.ico')}}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
-        <link rel="stylesheet" href="/public/css/styles.css">
 
         <!-- Styles -->
         <style>
@@ -69,20 +69,20 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
+{{--            @if (Route::has('login'))--}}
                 <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
+                    {{--@if (Auth::check())--}}
+                        <a href="{{ url('/users') }}">Users</a>
+                    {{--@else--}}
                         <a href="{{ url('/login') }}">Login</a>
                         <a href="{{ url('/register') }}">Register</a>
-                    @endif
+                    {{--@endif--}}
                 </div>
-            @endif
+            {{--@endif--}}
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    ENR
                 </div>
 
                 <div class="links">
